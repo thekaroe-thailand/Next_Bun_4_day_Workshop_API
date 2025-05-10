@@ -119,7 +119,8 @@ exports.Prisma.BookScalarFieldEnum = {
   price: 'price',
   description: 'description',
   isbn: 'isbn',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  image: 'image'
 };
 
 exports.Prisma.AdminScalarFieldEnum = {

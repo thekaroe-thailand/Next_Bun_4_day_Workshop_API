@@ -941,6 +941,7 @@ export namespace Prisma {
     description: string | null
     isbn: string | null
     createdAt: Date | null
+    image: string | null
   }
 
   export type BookMaxAggregateOutputType = {
@@ -950,6 +951,7 @@ export namespace Prisma {
     description: string | null
     isbn: string | null
     createdAt: Date | null
+    image: string | null
   }
 
   export type BookCountAggregateOutputType = {
@@ -959,6 +961,7 @@ export namespace Prisma {
     description: number
     isbn: number
     createdAt: number
+    image: number
     _all: number
   }
 
@@ -978,6 +981,7 @@ export namespace Prisma {
     description?: true
     isbn?: true
     createdAt?: true
+    image?: true
   }
 
   export type BookMaxAggregateInputType = {
@@ -987,6 +991,7 @@ export namespace Prisma {
     description?: true
     isbn?: true
     createdAt?: true
+    image?: true
   }
 
   export type BookCountAggregateInputType = {
@@ -996,6 +1001,7 @@ export namespace Prisma {
     description?: true
     isbn?: true
     createdAt?: true
+    image?: true
     _all?: true
   }
 
@@ -1092,6 +1098,7 @@ export namespace Prisma {
     description: string | null
     isbn: string | null
     createdAt: Date | null
+    image: string | null
     _count: BookCountAggregateOutputType | null
     _avg: BookAvgAggregateOutputType | null
     _sum: BookSumAggregateOutputType | null
@@ -1120,6 +1127,7 @@ export namespace Prisma {
     description?: boolean
     isbn?: boolean
     createdAt?: boolean
+    image?: boolean
   }, ExtArgs["result"]["book"]>
 
 
@@ -1131,9 +1139,10 @@ export namespace Prisma {
     description?: boolean
     isbn?: boolean
     createdAt?: boolean
+    image?: boolean
   }
 
-  export type BookOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "price" | "description" | "isbn" | "createdAt", ExtArgs["result"]["book"]>
+  export type BookOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "price" | "description" | "isbn" | "createdAt" | "image", ExtArgs["result"]["book"]>
 
   export type $BookPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Book"
@@ -1145,6 +1154,7 @@ export namespace Prisma {
       description: string | null
       isbn: string | null
       createdAt: Date | null
+      image: string | null
     }, ExtArgs["result"]["book"]>
     composites: {}
   }
@@ -1543,6 +1553,7 @@ export namespace Prisma {
     readonly description: FieldRef<"Book", 'String'>
     readonly isbn: FieldRef<"Book", 'String'>
     readonly createdAt: FieldRef<"Book", 'DateTime'>
+    readonly image: FieldRef<"Book", 'String'>
   }
     
 
@@ -2844,7 +2855,8 @@ export namespace Prisma {
     price: 'price',
     description: 'description',
     isbn: 'isbn',
-    createdAt: 'createdAt'
+    createdAt: 'createdAt',
+    image: 'image'
   };
 
   export type BookScalarFieldEnum = (typeof BookScalarFieldEnum)[keyof typeof BookScalarFieldEnum]
@@ -2952,6 +2964,7 @@ export namespace Prisma {
     description?: StringNullableFilter<"Book"> | string | null
     isbn?: StringNullableFilter<"Book"> | string | null
     createdAt?: DateTimeNullableFilter<"Book"> | Date | string | null
+    image?: StringNullableFilter<"Book"> | string | null
   }
 
   export type BookOrderByWithRelationInput = {
@@ -2961,6 +2974,7 @@ export namespace Prisma {
     description?: SortOrder
     isbn?: SortOrder
     createdAt?: SortOrder
+    image?: SortOrder
   }
 
   export type BookWhereUniqueInput = Prisma.AtLeast<{
@@ -2973,6 +2987,7 @@ export namespace Prisma {
     description?: StringNullableFilter<"Book"> | string | null
     isbn?: StringNullableFilter<"Book"> | string | null
     createdAt?: DateTimeNullableFilter<"Book"> | Date | string | null
+    image?: StringNullableFilter<"Book"> | string | null
   }, "id">
 
   export type BookOrderByWithAggregationInput = {
@@ -2982,6 +2997,7 @@ export namespace Prisma {
     description?: SortOrder
     isbn?: SortOrder
     createdAt?: SortOrder
+    image?: SortOrder
     _count?: BookCountOrderByAggregateInput
     _avg?: BookAvgOrderByAggregateInput
     _max?: BookMaxOrderByAggregateInput
@@ -2999,6 +3015,7 @@ export namespace Prisma {
     description?: StringNullableWithAggregatesFilter<"Book"> | string | null
     isbn?: StringNullableWithAggregatesFilter<"Book"> | string | null
     createdAt?: DateTimeNullableWithAggregatesFilter<"Book"> | Date | string | null
+    image?: StringNullableWithAggregatesFilter<"Book"> | string | null
   }
 
   export type AdminWhereInput = {
@@ -3065,6 +3082,7 @@ export namespace Prisma {
     description?: string | null
     isbn?: string | null
     createdAt?: Date | string | null
+    image?: string | null
   }
 
   export type BookUncheckedCreateInput = {
@@ -3074,6 +3092,7 @@ export namespace Prisma {
     description?: string | null
     isbn?: string | null
     createdAt?: Date | string | null
+    image?: string | null
   }
 
   export type BookUpdateInput = {
@@ -3082,6 +3101,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     isbn?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type BookUncheckedUpdateInput = {
@@ -3090,6 +3110,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     isbn?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type BookCreateManyInput = {
@@ -3099,6 +3120,7 @@ export namespace Prisma {
     description?: string | null
     isbn?: string | null
     createdAt?: Date | string | null
+    image?: string | null
   }
 
   export type BookUpdateManyMutationInput = {
@@ -3107,6 +3129,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     isbn?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type BookUncheckedUpdateManyInput = {
@@ -3115,6 +3138,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     isbn?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type AdminCreateInput = {
@@ -3237,6 +3261,7 @@ export namespace Prisma {
     description?: SortOrder
     isbn?: SortOrder
     createdAt?: SortOrder
+    image?: SortOrder
   }
 
   export type BookAvgOrderByAggregateInput = {
@@ -3250,6 +3275,7 @@ export namespace Prisma {
     description?: SortOrder
     isbn?: SortOrder
     createdAt?: SortOrder
+    image?: SortOrder
   }
 
   export type BookMinOrderByAggregateInput = {
@@ -3259,6 +3285,7 @@ export namespace Prisma {
     description?: SortOrder
     isbn?: SortOrder
     createdAt?: SortOrder
+    image?: SortOrder
   }
 
   export type BookSumOrderByAggregateInput = {

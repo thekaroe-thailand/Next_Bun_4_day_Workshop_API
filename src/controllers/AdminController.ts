@@ -1,6 +1,14 @@
+import jwt from "@elysiajs/jwt";
 import { PrismaClient } from "../../generated/prisma";
 import { AdminInterface } from "../interface/AdminInterface";
 const prisma = new PrismaClient();
+
+const getAdminIdByToken = async (request: any, jwt: any) => {
+    const token = request.headers.get('Authorization').replace('Bearer ', '');
+    const payload = await jwt.verify(token);
+
+    return payload.id;
+}
 
 export const AdminController = {
     create: async ({ body }: {
@@ -60,7 +68,8 @@ export const AdminController = {
                 },
                 select: {
                     name: true,
-                    level: true
+                    level: true,
+                    username: true
                 }
             })
 
@@ -68,5 +77,128 @@ export const AdminController = {
         } catch (err) {
             return err
         }
+    },
+    update: async ({ body, jwt, request }: {
+        body: AdminInterface,
+        jwt: any,
+        request: any
+    }) => {
+        try {
+            const adminId = await getAdminIdByToken(request, jwt);
+            const oldAdmin = await prisma.admin.findUnique({
+                where: {
+                    id: adminId
+                }
+            })
+            await prisma.admin.update({
+                data: {
+                    name: body.name,
+                    username: body.username,
+                    password: body.password ?? oldAdmin?.password
+                },
+                where: {
+                    id: adminId
+                }
+            })
+            return { message: 'success' }
+        } catch (err) {
+            return err
+        }
+    },
+    list: async () => {
+        try {
+            const admins = await prisma.admin.findMany({
+                select: {
+                    id: true,
+                    name: true,
+                    username: true,
+                    level: true
+                },
+                orderBy: {
+                    name: 'asc'
+                },
+                where: {
+                    status: 'active'
+                }
+            })
+            return admins;
+        } catch (error) {
+            return error
+        }
+    },
+    updateData: async ({ params, body }: {
+        params: {
+            id: string
+        },
+        body: AdminInterface
+    }) => {
+        try {
+            const admin = await prisma.admin.findUnique({
+                where: {
+                    id: params.id
+                }
+            })
+
+            await prisma.admin.update({
+                data: {
+                    name: body.name,
+                    username: body.username,
+                    password: body.password ?? admin?.password,
+                    level: body.level
+                },
+                where: {
+                    id: params.id
+                }
+            })
+        } catch (error) {
+            return error
+        }
+    },
+    remove: async ({ params }: {
+        params: {
+            id: string
+        }
+    }) => {
+        try {
+            await prisma.admin.update({
+                data: {
+                    status: 'inactive'
+                },
+                where: {
+                    id: params.id
+                }
+            })
+        } catch (err) {
+            return err
+        }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

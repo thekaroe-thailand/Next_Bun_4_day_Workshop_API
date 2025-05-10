@@ -15,6 +15,7 @@ model Book {
   description String?
   isbn        String?
   createdAt   DateTime? @default(now())
+  image       String?
 }
 
 model Admin {

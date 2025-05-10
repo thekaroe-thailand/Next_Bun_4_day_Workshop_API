@@ -5,5 +5,6 @@ export interface BookInterface {
     description: string
     isbn: string
     createdAt: Date
+    image: File
 }
 

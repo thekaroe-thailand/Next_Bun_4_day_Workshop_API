@@ -11,10 +11,7 @@ import { AdminController } from "./controllers/AdminController";
 const app = new Elysia()
   .use(swagger())
   .use(cors())
-  .use(staticPlugin({     // http://localhost:3001/uploads/myfile.png
-    prefix: '/uploads',
-    assets: './uploads'
-  }))
+  .use(staticPlugin())
   .use(jwt({
     name: 'jwt',
     secret: 'secret'
@@ -24,6 +21,10 @@ const app = new Elysia()
     .post('/create', AdminController.create)
     .post('/signin', AdminController.signin)
     .get('/info', AdminController.info)
+    .put('/update', AdminController.update)
+    .get('/list', AdminController.list)
+    .put('/update-data/:id', AdminController.updateData)
+    .delete('/remove/:id', AdminController.remove)
   )
 
   // book controller
