@@ -7,6 +7,8 @@ import { jwt } from '@elysiajs/jwt'; // bun add @elysiajs/jwt
 import CustomerController from "./controllers/CustomerController";  // export default
 import { BookController } from "./controllers/BookController";      // export const BookController
 import { AdminController } from "./controllers/AdminController";
+import { MemberController } from "./controllers/MemberController";
+import { CartController } from "./controllers/CartController";
 
 const app = new Elysia()
   .use(swagger())
@@ -16,6 +18,17 @@ const app = new Elysia()
     name: 'jwt',
     secret: 'secret'
   }))
+
+  .group('/api/cart', app => app
+    .post('/add', CartController.add)
+    .get('/list/:memberId', CartController.list)
+  )
+
+  .group('/api/member', app => app
+    .post('/signup', MemberController.signup)
+    .post('/signin', MemberController.signin)
+    .get('/info', MemberController.info)
+  )
 
   .group('/api/admin', app => app
     .post('/create', AdminController.create)

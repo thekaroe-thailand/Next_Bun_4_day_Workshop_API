@@ -16,6 +16,7 @@ model Book {
   isbn        String?
   createdAt   DateTime? @default(now())
   image       String?
+  carts       Cart[]
 }
 
 model Admin {
@@ -25,4 +26,20 @@ model Admin {
   password String
   level    String @default("admin") // admin, user
   status   String @default("active") // active, inactive
+}
+
+model Member {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  phone    String
+  username String @unique
+  password String
+  status   String @default("active") // active, inactive
+}
+
+model Cart {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  bookId   String @db.ObjectId
+  memberId String
+  qty      Int
+  book     Book   @relation(fields: [bookId], references: [id])
 }

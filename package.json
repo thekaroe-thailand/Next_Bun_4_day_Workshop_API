@@ -10,13 +10,13 @@
     "@elysiajs/jwt": "^1.2.0",
     "@elysiajs/static": "^1.2.0",
     "@elysiajs/swagger": "^1.2.2",
-    "@prisma/client": "^6.7.0",
+    "@prisma/client": "^6.8.2",
     "elysia": "latest"
   },
   "devDependencies": {
     "@types/node": "^22.15.3",
     "bun-types": "latest",
-    "prisma": "^6.7.0",
+    "prisma": "^6.8.2",
     "tsx": "^4.19.4",
     "typescript": "^5.8.3"
   },

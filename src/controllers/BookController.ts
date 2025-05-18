@@ -48,12 +48,14 @@ export const BookController = {
             const imageName = body.image.name ?? '';
             const image = body.image ?? null;
 
-            if (imageName != '') {
-                const oldBook = await prisma.book.findUnique({
-                    where: {
-                        id: params.id
-                    }
-                })
+            const oldBook = await prisma.book.findUnique({
+                where: {
+                    id: params.id
+                }
+            })
+
+            if (imageName != '' && imageName != undefined) {
+
                 const file = Bun.file("public/uploads/" + oldBook?.image);
 
                 if (await file.exists()) {
@@ -69,7 +71,7 @@ export const BookController = {
                     price: parseInt(body.price.toString()),
                     isbn: body.isbn,
                     description: body.description,
-                    image: imageName
+                    image: imageName == undefined ? oldBook?.image : imageName
                 },
                 where: {
                     id: params.id
