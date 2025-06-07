@@ -10,13 +10,15 @@
     "@elysiajs/jwt": "^1.2.0",
     "@elysiajs/static": "^1.2.0",
     "@elysiajs/swagger": "^1.2.2",
-    "@prisma/client": "^6.8.2",
-    "elysia": "latest"
+    "@prisma/client": "^6.9.0",
+    "elysia": "latest",
+    "promptpay-qr": "^0.5.0",
+    "qrcode": "^1.5.4"
   },
   "devDependencies": {
     "@types/node": "^22.15.3",
     "bun-types": "latest",
-    "prisma": "^6.8.2",
+    "prisma": "^6.9.0",
     "tsx": "^4.19.4",
     "typescript": "^5.8.3"
   },

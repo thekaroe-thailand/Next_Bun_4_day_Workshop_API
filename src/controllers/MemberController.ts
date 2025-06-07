@@ -71,4 +71,47 @@ export const MemberController = {
             return err
         }
     },
+    history: async ({ request, jwt, set }: {
+        request: any,
+        jwt: any,
+        set: {
+            status: number
+        }
+    }) => {
+        try {
+            const token = request.headers.get('Authorization').replace('Bearer ', '');
+            const payload = await jwt.verify(token);
+
+            return await prisma.order.findMany({
+                where: {
+                    memberId: payload.id
+                },
+                select: {
+                    OrderDetail: {
+                        select: {
+                            qty: true,
+                            price: true,
+                            Book: {
+                                select: {
+                                    name: true,
+                                    isbn: true,
+                                    image: true
+                                }
+                            }
+                        }
+                    },
+                    createdAt: true,
+                    customerName: true,
+                    customerAddress: true,
+                    customerPhone: true,
+                    trackCode: true,
+                    status: true,
+                    remark: true
+                }
+            });
+        } catch (err) {
+            set.status = 500;
+            return err;
+        }
+    }
 }

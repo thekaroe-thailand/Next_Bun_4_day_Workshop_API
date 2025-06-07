@@ -9,14 +9,15 @@ datasource db {
 }
 
 model Book {
-  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  id          String        @id @default(auto()) @map("_id") @db.ObjectId
   name        String
   price       Int
   description String?
   isbn        String?
-  createdAt   DateTime? @default(now())
+  createdAt   DateTime?     @default(now())
   image       String?
   carts       Cart[]
+  OrderDetail OrderDetail[]
 }
 
 model Admin {
@@ -29,11 +30,14 @@ model Admin {
 }
 
 model Member {
-  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  id       String  @id @default(auto()) @map("_id") @db.ObjectId
   phone    String
-  username String @unique
+  username String  @unique
   password String
-  status   String @default("active") // active, inactive
+  status   String  @default("active") // active, inactive
+  address  String?
+  name     String?
+  Orders   Order[]
 }
 
 model Cart {
@@ -42,4 +46,30 @@ model Cart {
   memberId String
   qty      Int
   book     Book   @relation(fields: [bookId], references: [id])
+}
+
+model Order {
+  id              String        @id @default(auto()) @map("_id") @db.ObjectId
+  memberId        String        @db.ObjectId
+  createdAt       DateTime
+  Member          Member        @relation(fields: [memberId], references: [id])
+  slipImage       String
+  status          String        @default("") // cancel, paid, transfer
+  trackCode       String        @default("")
+  express         String        @default("")
+  remark          String        @default("")
+  customerName    String
+  customerAddress String
+  customerPhone   String
+  OrderDetail     OrderDetail[]
+}
+
+model OrderDetail {
+  id      String @id @default(auto()) @map("_id") @db.ObjectId
+  bookId  String @db.ObjectId
+  Book    Book   @relation(fields: [bookId], references: [id])
+  price   Int
+  qty     Int
+  orderId String @db.ObjectId
+  Order   Order  @relation(fields: [orderId], references: [id])
 }

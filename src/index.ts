@@ -9,6 +9,7 @@ import { BookController } from "./controllers/BookController";      // export co
 import { AdminController } from "./controllers/AdminController";
 import { MemberController } from "./controllers/MemberController";
 import { CartController } from "./controllers/CartController";
+import { OrderController } from "./controllers/OrderController";
 
 const app = new Elysia()
   .use(swagger())
@@ -19,17 +20,40 @@ const app = new Elysia()
     secret: 'secret'
   }))
 
+  //
+  // order
+  //
+  .group('/api/order', app => app
+    .get('/list', OrderController.list)
+  )
+
+  //
+  // cart
+  //
   .group('/api/cart', app => app
     .post('/add', CartController.add)
     .get('/list/:memberId', CartController.list)
+    .delete('/delete/:id', CartController.delete)
+    .put('/upQty/:id', CartController.upQty)
+    .put('/downQty/:id', CartController.downQty)
+    .post('/confirm', CartController.cartConfirm)
+    .post('/uploadSlip', CartController.uploadSlip)
+    .post('/confirmOrder', CartController.confirmOrder)
   )
 
+  //
+  // member
+  //
   .group('/api/member', app => app
     .post('/signup', MemberController.signup)
     .post('/signin', MemberController.signin)
     .get('/info', MemberController.info)
+    .get('/history', MemberController.history)
   )
 
+  // 
+  // admin
+  //
   .group('/api/admin', app => app
     .post('/create', AdminController.create)
     .post('/signin', AdminController.signin)
@@ -40,7 +64,9 @@ const app = new Elysia()
     .delete('/remove/:id', AdminController.remove)
   )
 
+  //
   // book controller
+  //
   .group('/api/book', app => app
     .post('/', BookController.create)
     .get('/', BookController.list)
@@ -223,6 +249,9 @@ const app = new Elysia()
     const file = Bun.file('test.txt')
     return file.text();
   })
+
+  // test qr code promptpay
+
 
   .listen(3001);
 

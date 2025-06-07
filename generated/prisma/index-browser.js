@@ -20,12 +20,12 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 6.8.2
- * Query Engine version: 2060c79ba17c6bb9f5823312b6f6b7f4a845738e
+ * Prisma Client JS version: 6.9.0
+ * Query Engine version: 81e4af48011447c3cc503a190e86995b66d2a28e
  */
 Prisma.prismaVersion = {
-  client: "6.8.2",
-  engine: "2060c79ba17c6bb9f5823312b6f6b7f4a845738e"
+  client: "6.9.0",
+  engine: "81e4af48011447c3cc503a190e86995b66d2a28e"
 }
 
 Prisma.PrismaClientKnownRequestError = () => {
@@ -137,7 +137,9 @@ exports.Prisma.MemberScalarFieldEnum = {
   phone: 'phone',
   username: 'username',
   password: 'password',
-  status: 'status'
+  status: 'status',
+  address: 'address',
+  name: 'name'
 };
 
 exports.Prisma.CartScalarFieldEnum = {
@@ -145,6 +147,28 @@ exports.Prisma.CartScalarFieldEnum = {
   bookId: 'bookId',
   memberId: 'memberId',
   qty: 'qty'
+};
+
+exports.Prisma.OrderScalarFieldEnum = {
+  id: 'id',
+  memberId: 'memberId',
+  createdAt: 'createdAt',
+  slipImage: 'slipImage',
+  status: 'status',
+  trackCode: 'trackCode',
+  express: 'express',
+  remark: 'remark',
+  customerName: 'customerName',
+  customerAddress: 'customerAddress',
+  customerPhone: 'customerPhone'
+};
+
+exports.Prisma.OrderDetailScalarFieldEnum = {
+  id: 'id',
+  bookId: 'bookId',
+  price: 'price',
+  qty: 'qty',
+  orderId: 'orderId'
 };
 
 exports.Prisma.SortOrder = {
@@ -162,7 +186,9 @@ exports.Prisma.ModelName = {
   Book: 'Book',
   Admin: 'Admin',
   Member: 'Member',
-  Cart: 'Cart'
+  Cart: 'Cart',
+  Order: 'Order',
+  OrderDetail: 'OrderDetail'
 };
 
 /**
