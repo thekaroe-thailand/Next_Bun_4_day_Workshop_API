@@ -39,20 +39,12 @@ const app = new Elysia()
     //
     // book controller
     //
-    /*
     .group('/api/book', app => app
         .post('/', BookController.create)
         .get('/', BookController.list)
         .put('/:id', BookController.update)
         .delete('/:id', BookController.delete)
     )
-        */
-    .get('/connect', () => {
-        const databaseUrl = env.DATABASE_URL;
-        console.log("databaseUrl", databaseUrl);
-
-        return { message: 'Connected to database' }
-    })
 
     //
     // customer controller
