@@ -1,5 +1,5 @@
 import type { MemberInterface } from "../interface/MemberInterface";
-import { PrismaClient } from "../../generated/prisma";
+import { PrismaClient } from '../generated/prisma-client'
 const prisma = new PrismaClient();
 
 export const MemberController = {

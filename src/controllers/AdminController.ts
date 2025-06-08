@@ -1,5 +1,5 @@
 import jwt from "@elysiajs/jwt";
-import { PrismaClient } from "../../generated/prisma";
+import { PrismaClient } from '../generated/prisma-client'
 import { AdminInterface } from "../interface/AdminInterface";
 const prisma = new PrismaClient();
 

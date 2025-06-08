@@ -1,5 +1,5 @@
 import type { CartInterface } from "../interface/CartInterface";
-import { PrismaClient } from "../../generated/prisma";
+import { PrismaClient } from '../generated/prisma-client'
 const prisma = new PrismaClient();
 
 export const CartController = {
