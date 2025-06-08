@@ -1,6 +1,8 @@
 # ใช้ Node.js base image ที่มี OpenSSL 3 ติดมาด้วย
 FROM node:20-slim
 
+RUN rm -rf node_modules
+
 # ติดตั้ง curl และ unzip (จำเป็นสำหรับติดตั้ง Bun)
 RUN apt-get update && apt-get install -y curl unzip && apt-get clean
 
@@ -19,6 +21,12 @@ COPY . .
 
 # ติดตั้ง dependencies
 RUN bun install
+
+# ลบ node_modules ที่ติดมาจาก local ทุกครั้ง
+RUN rm -rf node_modules
+
+# ติดตั้ง dependencies ด้วย NPM (ตามที่คุณต้องการ)
+RUN npm install
 
 # สร้าง Prisma Client ใหม่ (ในกรณีที่ใช้)
 RUN bunx prisma generate
