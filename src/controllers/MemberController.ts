@@ -89,6 +89,7 @@ export const MemberController = {
                 select: {
                     OrderDetail: {
                         select: {
+                            id: true,
                             qty: true,
                             price: true,
                             Book: {
@@ -105,8 +106,10 @@ export const MemberController = {
                     customerAddress: true,
                     customerPhone: true,
                     trackCode: true,
+                    express: true,
                     status: true,
-                    remark: true
+                    remark: true,
+                    id: true
                 }
             });
         } catch (err) {

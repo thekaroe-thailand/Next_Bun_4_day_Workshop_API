@@ -10,6 +10,24 @@ import { AdminController } from "./controllers/AdminController";
 import { MemberController } from "./controllers/MemberController";
 import { CartController } from "./controllers/CartController";
 import { OrderController } from "./controllers/OrderController";
+import { DashboardController } from "./controllers/DashboardController";
+
+// middleware 
+const checkSignIn = async ({ jwt, request, set }: any) => {
+  const token = request.headers.get('Authorization').split(' ')[1];
+
+  if (!token) {
+    set.status = 401;
+    return 'Unauthorized';
+  }
+
+  const payload = await jwt.verify(token, 'secret');
+
+  if (!payload) {
+    set.status = 401;
+    return 'Unauthorized';
+  }
+}
 
 const app = new Elysia()
   .use(swagger())
@@ -20,11 +38,21 @@ const app = new Elysia()
     secret: 'secret'
   }))
 
+  // 
+  // dashboard
+  //
+  .group('/api/dashboard', app => app
+    .get('/list', DashboardController.list, { beforeHandle: checkSignIn })
+  )
+
   //
   // order
   //
   .group('/api/order', app => app
-    .get('/list', OrderController.list)
+    .get('/list', OrderController.list, { beforeHandle: checkSignIn })
+    .delete('/cancel/:id', OrderController.cancel, { beforeHandle: checkSignIn })
+    .put('/paid/:id', OrderController.paid, { beforeHandle: checkSignIn })
+    .put('/send', OrderController.send, { beforeHandle: checkSignIn })
   )
 
   //

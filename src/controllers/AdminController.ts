@@ -39,7 +39,8 @@ export const AdminController = {
                 },
                 select: {
                     id: true,
-                    name: true
+                    name: true,
+                    level: true
                 }
             })
 
@@ -48,7 +49,7 @@ export const AdminController = {
             }
 
             const token = await jwt.sign(admin)
-            return { token: token }
+            return { token: token, level: admin.level }
         } catch (err) {
             return err;
         }
