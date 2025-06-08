@@ -30,7 +30,6 @@ const checkSignIn = async ({ jwt, request, set }: any) => {
 }
 
 const app = new Elysia()
-  .use(swagger())
   .use(cors())
   .use(staticPlugin())
   .use(jwt({
