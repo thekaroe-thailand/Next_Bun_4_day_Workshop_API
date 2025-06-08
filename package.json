@@ -2,8 +2,9 @@
   "name": "app",
   "version": "1.0.50",
   "scripts": {
-    "dev": "bun run index.ts",
-    "build": "bun build",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "npx prisma generate && bun run --watch src/index.ts",
+    "start": "npx prisma generate && bun run src/index.ts",
     "postinstall": "prisma generate"
   },
   "dependencies": {
