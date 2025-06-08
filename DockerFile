@@ -1,22 +1,28 @@
 FROM node:20
 
 # ติดตั้ง openssl, libssl-dev, libssl3 (OpenSSL 3.x)
-RUN apt-get update && apt-get install -y openssl libssl-dev libssl3
+RUN apt-get update && \
+    apt-get install -y openssl libssl-dev libssl3
 
-RUN curl -fsSL https://bun.sh/install | bash \
-    && ln -s /root/.bun/bin/bun /usr/local/bin/bun
+# ติดตั้ง bun
+RUN curl -fsSL https://bun.sh/install | bash && \
+    ln -s /root/.bun/bin/bun /usr/local/bin/bun
 
 WORKDIR /app
 
+# copy package ก่อนเพื่อ cache layer
 COPY bun.lockb package.json ./
 RUN bun install
 
+# copy source code ที่เหลือ
 COPY . .
 
+# ลบ Prisma Client เก่า (ถ้ามี)
 RUN rm -rf node_modules/.prisma \
     && rm -rf src/generated/prisma-client \
     && rm -rf node_modules/@prisma/client
 
+# generate Prisma Client ใหม่ใน container
 RUN npx prisma generate
 
 ENV PORT=3001
