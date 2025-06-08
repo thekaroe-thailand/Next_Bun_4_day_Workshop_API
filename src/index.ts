@@ -4,6 +4,8 @@ import { staticPlugin } from '@elysiajs/static';
 import { jwt } from '@elysiajs/jwt'; // bun add @elysiajs/jwt
 
 import CustomerController from "./controllers/CustomerController";  // export default
+import { BookController } from "./controllers/BookController";      // export const BookController
+
 
 // middleware 
 const checkSignIn = async ({ jwt, request, set }: any) => {
@@ -33,7 +35,19 @@ const app = new Elysia()
         return { message: 'Hello' }
     })
 
+    //
+    // book controller
+    //
+    .group('/api/book', app => app
+        .post('/', BookController.create)
+        .get('/', BookController.list)
+        .put('/:id', BookController.update)
+        .delete('/:id', BookController.delete)
+    )
+
+    //
     // customer controller
+    //
     .get('/customers', CustomerController.list)
     .post('/customers', CustomerController.create)
     .put('/customers/:id', CustomerController.update)
