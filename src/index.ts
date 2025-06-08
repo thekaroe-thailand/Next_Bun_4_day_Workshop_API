@@ -2,6 +2,7 @@ import { Elysia } from "elysia";
 import { cors } from '@elysiajs/cors';
 import { staticPlugin } from '@elysiajs/static';
 import { jwt } from '@elysiajs/jwt'; // bun add @elysiajs/jwt
+import { env } from "bun";
 
 import CustomerController from "./controllers/CustomerController";  // export default
 import { BookController } from "./controllers/BookController";      // export const BookController
@@ -38,12 +39,20 @@ const app = new Elysia()
     //
     // book controller
     //
+    /*
     .group('/api/book', app => app
         .post('/', BookController.create)
         .get('/', BookController.list)
         .put('/:id', BookController.update)
         .delete('/:id', BookController.delete)
     )
+        */
+    .get('/connect', () => {
+        const databaseUrl = env.DATABASE_URL;
+        console.log("databaseUrl", databaseUrl);
+
+        return { message: 'Connected to database' }
+    })
 
     //
     // customer controller
