@@ -1,0 +1,21 @@
+FROM node:20
+
+# ติดตั้ง openssl
+RUN apt-get update && apt-get install -y openssl
+
+# ติดตั้ง bun แบบ global และ upgrade ทุกครั้งที่ build
+RUN curl -fsSL https://bun.sh/install | bash \
+    && ln -s /root/.bun/bin/bun /usr/local/bin/bun \
+    && bun upgrade
+
+WORKDIR /app
+
+COPY . .
+
+RUN bun install
+
+RUN npx prisma generate
+
+ENV PORT=3001
+
+CMD ["bun", "run", "src/index.ts"]
