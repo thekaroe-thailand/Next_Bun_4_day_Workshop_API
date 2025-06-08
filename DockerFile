@@ -8,6 +8,8 @@ RUN apt-get update && apt-get install -y curl unzip && apt-get clean
 
 RUN apt-get install -y openssl
 
+RUN apt install libssl3
+
 # ติดตั้ง Bun รุ่นล่าสุด
 RUN curl -fsSL https://bun.sh/install | bash && \
     ln -s /root/.bun/bin/bun /usr/local/bin/bun
