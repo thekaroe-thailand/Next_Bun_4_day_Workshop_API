@@ -1,21 +1,30 @@
-FROM node:20
+# ใช้ Node.js base image ที่มี OpenSSL 3 ติดมาด้วย
+FROM node:20-slim
 
-# ติดตั้ง openssl
-RUN apt-get update && apt-get install -y openssl
+# ติดตั้ง curl และ unzip (จำเป็นสำหรับติดตั้ง Bun)
+RUN apt-get update && apt-get install -y curl unzip && apt-get clean
 
-# ติดตั้ง bun แบบ global และ upgrade ทุกครั้งที่ build
-RUN curl -fsSL https://bun.sh/install | bash \
-    && ln -s /root/.bun/bin/bun /usr/local/bin/bun \
-    && bun upgrade
+# ติดตั้ง Bun รุ่นล่าสุด
+RUN curl -fsSL https://bun.sh/install | bash && \
+    ln -s /root/.bun/bin/bun /usr/local/bin/bun
 
+# ตรวจสอบ Bun version
+RUN bun --version
+
+# ทำงานในโฟลเดอร์ /app
 WORKDIR /app
 
+# คัดลอกโค้ดไปยัง container
 COPY . .
 
+# ติดตั้ง dependencies
 RUN bun install
 
-RUN npx prisma generate
+# สร้าง Prisma Client ใหม่ (ในกรณีที่ใช้)
+RUN bunx prisma generate
 
-ENV PORT=3001
+# เปิดพอร์ต 3000
+EXPOSE 3000
 
-CMD ["bun", "run", "src/index.ts"]
+# สั่งรันแอป (เช่น index.ts หรือ main.ts)
+CMD ["bun", "run", "index.ts"]
