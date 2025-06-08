@@ -3,8 +3,8 @@
   "version": "1.0.50",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "npx prisma generate && bun run --watch src/index.ts",
-    "start": "npx prisma generate && bun run src/index.ts",
+    "dev": "bun run --watch src/index.ts",
+    "start": "bun run src/index.ts",
     "postinstall": "prisma generate"
   },
   "dependencies": {
