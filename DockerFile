@@ -3,17 +3,22 @@ FROM node:20
 # ติดตั้ง openssl
 RUN apt-get update && apt-get install -y openssl
 
-# ติดตั้ง bun แบบ global และ upgrade ทุกครั้งที่ build
+# ติดตั้ง bun แบบ global
 RUN curl -fsSL https://bun.sh/install | bash \
-    && ln -s /root/.bun/bin/bun /usr/local/bin/bun \
-    && bun upgrade
+    && ln -s /root/.bun/bin/bun /usr/local/bin/bun
 
 WORKDIR /app
 
-COPY . .
+# คัดลอกไฟล์ package ก่อน เพื่อใช้ layer cache
+COPY bun.lockb package.json ./
 
+# ติดตั้ง dependencies
 RUN bun install
 
+# คัดลอก source code ที่เหลือ
+COPY . .
+
+# generate prisma client (สำคัญ! ต้องหลังจาก copy source code)
 RUN npx prisma generate
 
 ENV PORT=3001
