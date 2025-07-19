@@ -31,6 +31,22 @@ export const BookController = {
             return await prisma.book.findMany({
                 orderBy: {
                     createdAt: 'asc'
+                },
+                select: {
+                    id: true,
+                    name: true,
+                    price: true,
+                    isbn: true,
+                    description: true,
+                    image: true,
+                    ImportToStock: {
+                        select: {
+                            id: true,
+                            qty: true,
+                            createdAt: true,
+                            updatedAt: true
+                        }
+                    }
                 }
             });
         } catch (err) {
