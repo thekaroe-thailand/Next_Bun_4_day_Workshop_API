@@ -114,5 +114,34 @@ export const BookController = {
         } catch (error) {
             return { error: error }
         }
+    },
+    importToStock: async ({ body }: {
+        body: {
+            bookId: string
+            qty: number
+        }
+    }) => {
+        try {
+            const book = await prisma.book.findUnique({
+                where: {
+                    id: body.bookId
+                }
+            })
+
+            if (!book) {
+                return { error: 'Book not found' }
+            }
+
+            await prisma.importToStock.create({
+                data: {
+                    bookId: body.bookId,
+                    qty: body.qty
+                }
+            })
+
+            return { message: 'success' };
+        } catch (err) {
+            return err;
+        }
     }
 }
